@@ -1,0 +1,1 @@
+SELECT AVR(grade) FROM 

@@ -8,7 +8,7 @@ CREATE TABLE students (
 -- Table: groups
 DROP TABLE IF EXISTS groups;
 CREATE TABLE groups (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER,
     student_id INTEGER,
     FOREIGN KEY (student_id) REFERENCES students (id)
       ON DELETE CASCADE
@@ -30,6 +30,22 @@ CREATE TABLE lectures (
     lecturer_id INTEGER,
     student_id INTEGER,
     FOREIGN KEY (lecturer_id) REFERENCES lecturers (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+    FOREIGN KEY (student_id) REFERENCES students (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+)
+
+-- Table: grades
+DROP TABLE IF EXISTS grades;
+CREATE TABLE grades (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    grade INTEGER NOT NULL,
+    lecture_id INTEGER,
+    student_id INTEGER,
+    date_of DATE NOT NULL
+    FOREIGN KEY (lecture_id) REFERENCES lectures (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
     FOREIGN KEY (student_id) REFERENCES students (id)
