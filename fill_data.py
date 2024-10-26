@@ -12,7 +12,7 @@ NUMBER_LECTURERS = 5
 NUMBER_GRADES = 20
 
 
-def generate_fake_data(number_students, number_lecturers, number_groups):
+def generate_fake_data(number_students, number_lecturers):
     '''generate data for database'''
     fake_students = []  # save student name
     fake_lecturers = [] # save lecturers names
@@ -22,9 +22,6 @@ def generate_fake_data(number_students, number_lecturers, number_groups):
     # Generyjemy listę studentów w ilości number_students
     for _ in range(number_students):
         fake_students.append(fake_data.name())
-
-    for i in range(1, number_groups + 1):
-        fake_groups.append(i)
 
     for _ in range(number_lecturers):
         fake_lecturers.append(fake_data.name())
@@ -44,13 +41,15 @@ def prepare_data(students, lecturers, groups, lectures, grades) -> tuple():
 
     for_groups = []
     for group in range(1, students + 1):
-        for_groups.append((group, randint(1, groups)))
+        for_groups.append((randint(1, groups), group))
 
     for_lectures = []
     for lecture in lectures:
         for_lectures.append((lecture, randint(1, NUMBER_LECTURERS)))
 
-
+    for_grades = []
+    for grade in grades:
+        
 
     for_employees = []  # для таблиці employees
     for emp in employees:
@@ -72,7 +71,6 @@ def prepare_data(students, lecturers, groups, lectures, grades) -> tuple():
     для кожного місяця, та кожного співробітника.
     '''
     for_payments = []
-
     for month in range(1, 12 + 1):
         # Виконуємо цикл за місяцями'''
         payment_date = datetime(2021, month, randint(10, 20)).date()
@@ -117,8 +115,8 @@ def insert_data_to_db(companies, employees, payments) -> None:
         con.commit()
 
 if __name__ == '__main__':
-    companies, employees, posts = prepare_data(*generate_fake_data(NUMBER_COMPANIES,
-                                                                NUMBER_EMPLOYESS, NUMBER_POST))
+    companies, employees, posts = prepare_data(generate_fake_data(NUMBER_STUDENTS,
+                                                                NUMBER_LECTURERS), )
     print(companies)
     print(employees)
     print(posts)
