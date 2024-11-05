@@ -1,1 +1,0 @@
-SELECT AVR(grade) FROM 

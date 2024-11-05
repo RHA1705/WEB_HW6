@@ -1,6 +1,10 @@
-from faker import Faker
-from random import randint, choice
+import sqlite3
+from random import randint
 from datetime import datetime, date
+from faker import Faker
+
+
+
 
 NUMBER_STUDENTS = 30
 NUMBER_GROUPS = 3
@@ -22,15 +26,17 @@ def generate_groups(groups, students):
 
     return for_groups
 
-def generate_grades():
+def generate_grades(number_students):
     for_grades = []
-    for month in range(1, 12 + 1):
-        # Виконуємо цикл за місяцями'''
-        grade_date = datetime(2021, month, randint(1, 31)).date()
-        for student in range(1, ):
-            # Виконуємо цикл за кількістю співробітників
-            for_grades.append((emp, grade_date, randint(1000, 10000)))
+    for _ in range(20):
+        grade_date = datetime(2023, randint(1, 12), randint(1, 28)).date()
+        for student in range(1, number_students+1):
+            # Pętla za ilością studentów
+            for_grades.append((randint(3, 5), randint(1, 5), student, grade_date))
+
+    return for_grades
 
 if __name__ == '__main__':
     result = generate_groups(NUMBER_GROUPS, NUMBER_STUDENTS)
-    print(result)
+    result_2 = generate_grades(NUMBER_STUDENTS)
+    print(result_2)
