@@ -4,7 +4,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--name', '-n', 
+parser.add_argument('--name', '-n',
                     help='Please enter lecturer full name')
 args = vars(parser.parse_args())
 
@@ -17,10 +17,13 @@ def execute_query(sql: str, lecturer) -> list:
         return cur.fetchall()
 
 sql = """
-SELECT l.lecture, lr.lecturer
-FROM lectures l
+SELECT round(avg(g.grade), 2) avg_garde, l.lecture, lr.lecturer
+FROM grades g 
+	JOIN lectures l ON g.lecture_id = l.id
+	JOIN groups gr ON g.student_id = gr.student_id
 	JOIN lecturers lr ON l.lecturer_id = lr.id
 WHERE lr.lecturer = ?
+GROUP BY l.lecture
 ;
 """
 
